@@ -6,8 +6,7 @@ class App extends Component {
     super(props); 
     this.canvasRef = createRef();
     this.ctx = null;
-    this.player = [ 'Alice', 'Audrey' ];
-    this.dataChange = this.dataChange.bind(this);
+    this.player = [ 'Alice(O)', 'Audrey(X)' ];
     this.state = {
       tictactoe: [
         ['', '', ''],
@@ -34,14 +33,64 @@ class App extends Component {
     })
   }
 
-  dataChange(x, y, event) {
-    const arr = this.state.tictactoe;
-    if(arr[y][x] === 0 || arr[y][x] === 1) return;
-    arr[y][x] = this.state.order === 0 ? 0 : 1; 
+  dataChange(x, y) {
+    const tictactoe = this.state.tictactoe;
+    if(tictactoe[y][x] === 0 || tictactoe[y][x] === 1) return;
+    tictactoe[y][x] = this.state.order === 0 ? 0 : 1; 
     this.setState({ 
-      tictactoe: arr,
-      order: this.state.order === 0 ? 1 : 0
+      tictactoe: tictactoe
    });
+   this.result();
+  }
+
+  result(){
+    const victory = [
+      ['00', '01', '02'],
+      ['10', '11', '12'],
+      ['20', '21', '22'],
+      ['00', '10', '20'],
+      ['01', '11', '21'],
+      ['02', '12', '22'],
+      ['00', '11', '22'],
+      ['02', '11', '20'],
+    ];
+    const tictactoe = this.state.tictactoe;
+    let arrO = [];
+    let arrX = [];
+    tictactoe.forEach((val, y) => {
+      val.forEach((el, x) => {
+        switch(el){
+          case 0:
+            arrO.push(String(x)+y);
+            break;
+          case 1:
+            arrX.push(String(x)+y);
+            break;
+        }
+      })
+    }, []);
+
+    const win = (value) => {
+      return victory.some((val) => {
+        let arr = []
+        val.forEach(el => {    
+          const res = value.filter(v => v === el);
+          if(res.length > 0){
+            arr.push(res);
+          }
+        })
+        return arr.length === 3;
+      })
+    }
+    
+    if(win(arrO) || win(arrX)){
+      console.log('order', this.player[this.state.order])
+      alert(this.player[this.state.order]+'WIN!!')
+    }else{
+      this.setState({ 
+        order: this.state.order === 0 ? 1 : 0
+      });
+    }
   }
 
   render() {    
