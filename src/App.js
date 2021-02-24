@@ -1,5 +1,6 @@
 import React, { Component, createRef } from 'react';
 import './App.css';
+import WinPopup from './WinPopup';
 
 class App extends Component {
   constructor(props) {
@@ -19,16 +20,20 @@ class App extends Component {
   };
 
   componentDidMount() {
+    
     this.ctx = this.canvasRef.current.getContext("2d");    
+    this.ctx.strokeStyle = '#fff';
+    this.ctx.lineWidth = 10; 
+    this.ctx.lineCap = 'round'; 
     this.state.tictactoe.forEach((el, idx) => {
       if((200*idx) > 0){
         this.ctx.beginPath();
-        this.ctx.moveTo((200*idx), 0);
-        this.ctx.lineTo((200*idx), 600);
+        this.ctx.moveTo((200*idx), 10);
+        this.ctx.lineTo((200*idx), 590);
         this.ctx.stroke();   
         this.ctx.beginPath();
-        this.ctx.moveTo(0, (200*idx));
-        this.ctx.lineTo(600, (200*idx));
+        this.ctx.moveTo(10, (200*idx));
+        this.ctx.lineTo(590, (200*idx));
         this.ctx.stroke(); 
       }
     })
@@ -116,7 +121,6 @@ class App extends Component {
     return (
       <div className="App">
         <button onClick={this.reset.bind(this)}>reset</button>
-        {this.state.winPlayer}
         <ul className="player-box">
           {this.player.map((el, idx) => {
             return <li key={idx} className={this.state.order === idx ? 'active' : ''}>{el}</li>
@@ -128,12 +132,15 @@ class App extends Component {
             {this.state.tictactoe.map((el, index) => {
               return el.map((val, idx) => {
                 return <li key={idx} onClick={this.dataChange.bind(this, idx, index)}>
-                  {val === '' ? '' : val === 0 ? 'O' : 'X'}
+                  {val === '' ? '' : val === 0 ? 
+                  <span className="f-white">O</span> : 
+                  <span className="f-pink">X</span>}
                 </li>
               });
             })}
           </ul>
         </div>
+        { this.state.winPlayer !== "" && <WinPopup name={this.state.winPlayer}/> }
       </div>
     )
   }
