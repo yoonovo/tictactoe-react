@@ -6,14 +6,15 @@ class App extends Component {
     super(props); 
     this.canvasRef = createRef();
     this.ctx = null;
-    this.player = [ 'Alice(O)', 'Audrey(X)' ];
+    this.player = [ 'Alice', 'Audrey' ];
     this.state = {
       tictactoe: [
         ['', '', ''],
         ['', '', ''], 
         ['', '', ''] 
       ],
-      order: 0
+      order: 0,
+      winPlayer: ''
     }
   };
 
@@ -34,6 +35,7 @@ class App extends Component {
   }
 
   dataChange(x, y) {
+    if(this.state.winPlayer) return;
     const tictactoe = this.state.tictactoe;
     if(tictactoe[y][x] === 0 || tictactoe[y][x] === 1) return;
     tictactoe[y][x] = this.state.order === 0 ? 0 : 1; 
@@ -66,6 +68,8 @@ class App extends Component {
           case 1:
             arrX.push(String(x)+y);
             break;
+          default:
+            break;
         }
       })
     }, []);
@@ -85,7 +89,10 @@ class App extends Component {
     
     if(win(arrO) || win(arrX)){
       console.log('order', this.player[this.state.order])
-      alert(this.player[this.state.order]+'WIN!!')
+      // alert(this.player[this.state.order]+'WIN!!')
+      this.setState({
+        winPlayer: this.player[this.state.order]
+      })
     }else{
       this.setState({ 
         order: this.state.order === 0 ? 1 : 0
@@ -93,9 +100,23 @@ class App extends Component {
     }
   }
 
+  reset(){
+    this.setState({ 
+      tictactoe: [
+        ['', '', ''],
+        ['', '', ''], 
+        ['', '', ''] 
+      ],
+      order: 0,
+      winPlayer: ''
+    });
+  }
+
   render() {    
     return (
       <div className="App">
+        <button onClick={this.reset.bind(this)}>reset</button>
+        {this.state.winPlayer}
         <ul className="player-box">
           {this.player.map((el, idx) => {
             return <li key={idx} className={this.state.order === idx ? 'active' : ''}>{el}</li>
