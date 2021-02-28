@@ -7,7 +7,7 @@ class App extends Component {
     super(props); 
     this.canvasRef = createRef();
     this.ctx = null;
-    this.player = [ 'Alice', 'Audrey' ];
+    this.player = [ 'Player1', 'Player2' ];
     this.state = {
       tictactoe: [
         ['', '', ''],
@@ -15,7 +15,8 @@ class App extends Component {
         ['', '', ''] 
       ],
       order: 0,
-      winPlayer: ''
+      winPlayer: '',
+      modalOpen: false
     }
   };
 
@@ -93,8 +94,6 @@ class App extends Component {
     }
     
     if(win(arrO) || win(arrX)){
-      console.log('order', this.player[this.state.order])
-      // alert(this.player[this.state.order]+'WIN!!')
       this.setState({
         winPlayer: this.player[this.state.order]
       })
@@ -120,7 +119,9 @@ class App extends Component {
   render() {    
     return (
       <div className="App">
-        <button onClick={this.reset.bind(this)}>reset</button>
+        <h3 className="title">TicTacToe
+          <i className="xi-refresh" onClick={this.reset.bind(this)}></i>
+        </h3>
         <ul className="player-box">
           {this.player.map((el, idx) => {
             return <li key={idx} className={this.state.order === idx ? 'active' : ''}>{el}</li>
@@ -133,14 +134,14 @@ class App extends Component {
               return el.map((val, idx) => {
                 return <li key={idx} onClick={this.dataChange.bind(this, idx, index)}>
                   {val === '' ? '' : val === 0 ? 
-                  <span className="f-white">O</span> : 
-                  <span className="f-pink">X</span>}
+                  <span className="player1">O</span> : 
+                  <span className="player2">X</span>}
                 </li>
               });
             })}
           </ul>
         </div>
-        { this.state.winPlayer !== "" && <WinPopup name={this.state.winPlayer}/> }
+        { this.state.winPlayer !== "" && <WinPopup name={this.state.winPlayer} close={this.reset.bind(this)}/> }
       </div>
     )
   }

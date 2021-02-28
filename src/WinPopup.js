@@ -4,14 +4,14 @@ import './App.css';
 class WinPopup extends Component {
   constructor(props) {
     super(props); 
-    this.state = {
-    }
   };
 
-  render() {    
+  render() {   
+    const { name, close } = this.props; 
     return (
       <div className="WinPopup">
-        {this.props.name}
+        <p>The winner is <b>{name}</b>!!</p>
+        <button onClick={close}>RLPLAY</button>
       </div>
     )
   }

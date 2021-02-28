@@ -12,14 +12,33 @@ html, body {
 
 .App {
   height: 100%;
-  background-color: #f5aaaa;
+  background-color: #000;
+}
+
+.title {
+  font-size: 80px;
+  height: 100px;
+  line-height: 100px;
+  width: 100%;
+  text-align: center;
+  color: lightgreen;
+}
+
+.xi-refresh {
+  color: lightgreen;
+  line-height: 100px;
+  font-size: 60px;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 .player-box {
   display: flex;
   width: 100%;
   height: 50px;
-  margin-bottom: 10px;
+  margin: 20px 0;
   list-style: none;
 }
 
@@ -31,7 +50,7 @@ html, body {
 }
 
 .player-box li.active{
-  background-color: skyblue;
+  background-color: lightgreen;
 }
 
 .tictactoe-box {
@@ -67,24 +86,44 @@ html, body {
   cursor: pointer;
 }
 
-.f-pink {
-  color: #f68080;
+.player1 {
+  color: lightgreen;
 }
 
-.f-white {
+.player2 {
   color: #fff;
 }
 
 /* WinPopup.js */
 .WinPopup {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
   width: 50%;
-  height: 100px;
-  background-color: lightyellow;
-  margin-top: -50px;
+  height: 140px;
+  background-color: lightgreen;
+  margin-top: -70px;
   margin-left: -25%;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 30%);
+}
+
+.WinPopup p {
+  margin-top: 15px;
+  font-size: 25px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.WinPopup button {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  width: 150px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #000;
+  font-weight: bold;
+  cursor: pointer;
 }
