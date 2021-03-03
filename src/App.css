@@ -110,6 +110,10 @@ html, body {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 30%);
 }
 
+.WinPopup.draw {
+  background-color: lightgray;
+}
+
 .WinPopup p {
   margin-top: 15px;
   font-size: 25px;

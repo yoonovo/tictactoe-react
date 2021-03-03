@@ -21,7 +21,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    
     this.ctx = this.canvasRef.current.getContext("2d");    
     this.ctx.strokeStyle = '#fff';
     this.ctx.lineWidth = 10; 
@@ -41,14 +40,16 @@ class App extends Component {
   }
 
   dataChange(x, y) {
-    if(this.state.winPlayer) return;
+    if(this.state.winPlayer) return; // 이긴 사람이 있을 경우
     const tictactoe = this.state.tictactoe;
-    if(tictactoe[y][x] === 0 || tictactoe[y][x] === 1) return;
+    if(tictactoe[y][x] === 0 || tictactoe[y][x] === 1) return; // O 혹은 X가 있을 경우 
+
     tictactoe[y][x] = this.state.order === 0 ? 0 : 1; 
     this.setState({ 
       tictactoe: tictactoe
    });
-   this.result();
+
+    this.result();
   }
 
   result(){
@@ -82,7 +83,7 @@ class App extends Component {
 
     const win = (value) => {
       return victory.some((val) => {
-        let arr = []
+        let arr = [];
         val.forEach(el => {    
           const res = value.filter(v => v === el);
           if(res.length > 0){
@@ -101,6 +102,14 @@ class App extends Component {
       this.setState({ 
         order: this.state.order === 0 ? 1 : 0
       });
+      const chkBlank = tictactoe.some(el => {
+        return el.some(v => v === '');
+      });
+      if(!chkBlank){
+        this.setState({
+          winPlayer: 'draw'
+        });
+      }
     }
   }
 

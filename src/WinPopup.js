@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 
 class WinPopup extends Component {
-  constructor(props) {
-    super(props); 
-  };
-
   render() {   
     const { name, close } = this.props; 
     return (
-      <div className="WinPopup">
-        <p>The winner is <b>{name}</b>!!</p>
+      <div className={name === 'draw' ? 'WinPopup draw' : 'WinPopup'} >
+        {
+          name === 'draw' ? 
+          <p className="draw"><b>A Draw :-(</b></p>
+          : <p>The winner is <b>{name}</b> :-)</p>
+        }
         <button onClick={close}>RLPLAY</button>
       </div>
     )
