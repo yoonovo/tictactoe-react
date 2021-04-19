@@ -62,11 +62,6 @@ html, body {
   justify-content: center;
 }
 
-.tictactoe-box canvas{
-  /* background-color: lightgray;
-  border: 2px solid #000; */
-}
-
 .tictactoe-box ul{
   position: absolute;
   top: 0;

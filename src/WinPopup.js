@@ -5,6 +5,7 @@ class WinPopup extends Component {
   render() {   
     const { name, close } = this.props; 
     return (
+      // 승부결과를 띄우는 알럿
       <div className={name === 'draw' ? 'WinPopup draw' : 'WinPopup'} >
         {
           name === 'draw' ? 

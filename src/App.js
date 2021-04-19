@@ -39,6 +39,7 @@ class App extends Component {
     })
   }
 
+  // 화면에 O 혹은 X 그리기
   dataChange(x, y) {
     if(this.state.winPlayer) return; // 이긴 사람이 있을 경우
     const tictactoe = this.state.tictactoe;
@@ -52,6 +53,7 @@ class App extends Component {
     this.result();
   }
 
+  // 승리여부 체크
   result(){
     const victory = [
       ['00', '01', '02'],
@@ -105,6 +107,8 @@ class App extends Component {
       const chkBlank = tictactoe.some(el => {
         return el.some(v => v === '');
       });
+
+      // 무승부 체크 
       if(!chkBlank){
         this.setState({
           winPlayer: 'draw'
